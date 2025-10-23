@@ -1,0 +1,7 @@
+rule samtools_index:
+	input:
+		bam = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}.sorted.bam"
+	output:
+		"/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}.sorted.bam.bai"
+	shell:
+		"samtools index {input.bam}"

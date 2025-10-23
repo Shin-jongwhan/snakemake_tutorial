@@ -1,0 +1,24 @@
+rule bwa_map:
+	input:
+		genome_fa = "/biarchive/project/jhshin/reference/hg38/ucsc/hg38_chr1.fa",
+		fastq_1 = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}_1.fastq.gz",
+		fastq_2 = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}_2.fastq.gz"
+	output:
+		bam = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}.bam"
+	params:
+		thread = 8
+	log:
+		stdout = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/log/bwa_map/{sample}.stdout.txt", 
+		stderr = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/log/bwa_map/{sample}.stderr.txt"
+	benchmark: 
+		"/biarchive/project/jhshin/test/snakemake_totorial/test_data/benchmark/bwa_map/{sample}.txt"
+	container: 
+		"docker://shinejh0528/bwa-mem2:1.2.0-samtools"
+	shell:
+		"""
+		bwa mem -t {params.thread} {input.genome_fa} {input.fastq_1} {input.fastq_2} 2> {log.stderr} \
+		| samtools view -Sb - \
+		> {output.bam} \
+		2> {log.stderr}
+		"""
+

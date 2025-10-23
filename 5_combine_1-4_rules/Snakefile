@@ -1,0 +1,39 @@
+sAnalysis_dir = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/"
+
+rule bwa_map:
+	input:
+		fastq_1 = sAnalysis_dir + "{sample}_1.fastq.gz",
+		fastq_2 = sAnalysis_dir + "{sample}_2.fastq.gz"
+	output:
+		bam = sAnalysis_dir + "result/mapping/{sample}/{sample}.bam"
+	params:
+		genome_fa = "/biarchive/project/jhshin/reference/hg38/ucsc/hg38_chr1.fa", 
+		thread = 8
+	shell:
+		"""
+		bwa mem -t {params.thread} {params.genome_fa} {input.fastq_1} {input.fastq_2} \
+		| samtools view -Sb - \
+		> {output.bam}
+		"""
+
+
+rule samtools_sort:
+	input:
+		bam = sAnalysis_dir + "result/mapping/{sample}/{sample}.bam"
+	output:
+		bam = sAnalysis_dir + "result/mapping/{sample}/{sample}.sorted.bam"
+	params:
+		thread = 8
+	shell:
+		"samtools sort -@ {params.thread} -T {wildcards.sample} "
+		"-O bam {input.bam} > {output.bam}"
+
+
+rule samtools_index:
+	input:
+		bam = sAnalysis_dir + "result/mapping/{sample}/{sample}.sorted.bam"
+	output:
+		bam_bai = sAnalysis_dir + "result/mapping/{sample}/{sample}.sorted.bam.bai"
+	shell:
+		"samtools index {input.bam}"
+

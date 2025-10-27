@@ -1,10 +1,10 @@
 rule bwa_map:
 	input:
 		genome_fa = "/biarchive/project/jhshin/reference/hg38/ucsc/hg38_chr1.fa", 
-		fastq_1 = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/test_1.fastq.gz",
-		fastq_2 = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/test_2.fastq.gz"
+		fastq_1 = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/test_1.fastq.gz",
+		fastq_2 = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/test_2.fastq.gz"
 	output:
-		bam = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/test.bam"
+		bam = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/test.bam"
 	params: 
 		thread = 8
 	shell:

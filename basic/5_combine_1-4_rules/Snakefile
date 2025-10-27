@@ -1,4 +1,4 @@
-sAnalysis_dir = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/"
+sAnalysis_dir = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/"
 
 rule bwa_map:
 	input:

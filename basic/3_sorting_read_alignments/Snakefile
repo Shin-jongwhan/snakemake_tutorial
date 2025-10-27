@@ -1,8 +1,8 @@
 rule samtools_sort:
 	input:
-		bam = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}.bam"
+		bam = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/{sample}.bam"
 	output:
-		bam = "/biarchive/project/jhshin/test/snakemake_totorial/test_data/{sample}.sorted.bam"
+		bam = "/biarchive/project/jhshin/test/snakemake_tutorial/test_data/{sample}.sorted.bam"
 	params: 
 		thread = 8
 	shell:
